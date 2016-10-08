@@ -1,0 +1,26 @@
+filebeat:
+  prospectors:
+    -
+      paths:
+        - "/var/log/app.log"
+      input_type: log
+      tail_files: true
+
+output:
+  redis:
+    host: "redis"
+    port: 6379
+
+logging:
+  level: debug
+
+  # enable file rotation with default configuration
+  to_files: true
+
+  # do not log to syslog
+  to_syslog: false
+
+  files:
+    path: /var/log/mybeat
+    name: mybeat.log
+    keepfiles: 7

@@ -1,0 +1,26 @@
+version: "2"
+
+services:
+  app:
+    build: "app/"
+    volumes:
+      - "./app:/opt/app"
+    links:
+      - redis
+
+  redis:
+    image: redis:3.2.4
+    ports:
+      - "6379:6379"
+
+  indexer:
+    build: "logstash/"
+    links:
+      - redis
+      - es0
+
+  es0:
+    image: itzg/elasticsearch
+    ports:
+      - "9200:9200"
+
